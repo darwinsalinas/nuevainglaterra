@@ -18,8 +18,9 @@ pip install -r requirements.txt
 Crear las migraciones de modelos nuevos
 ```bash
 python manage.py makemigrations
+```
 
-```Correr las migraciones
+Correr las migraciones
 ```bash
 python manage.py migrate
 ```
