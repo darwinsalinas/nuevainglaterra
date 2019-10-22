@@ -15,7 +15,11 @@ Instalar dependencias
 pip install -r requirements.txt
 ```
 
-Correr las migraciones
+Crear las migraciones de modelos nuevos
+```bash
+python manage.py makemigrations
+
+```Correr las migraciones
 ```bash
 python manage.py migrate
 ```
