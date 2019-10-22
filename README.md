@@ -15,3 +15,18 @@ Instalar dependencias
 pip install -r requirements.txt
 ```
 
+Correr las migraciones
+```bash
+python manage.py migrate
+```
+
+Crear super usuario
+```bash
+python manage.py createsupersuser
+```
+
+Levantar el servidor
+```bash
+python manage.py runserver
+```
+
