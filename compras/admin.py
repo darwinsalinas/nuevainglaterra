@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Proveedor, Compra, DetalleCompra
 
-# Register your models here.
+admin.site.register([
+    Proveedor,
+    Compra,
+    DetalleCompra,
+])
