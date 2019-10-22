@@ -1,5 +1,5 @@
 # nuevainglaterra
-Ejemplo simple con django para control de inventarios usando el panel administrativo de django
+Ejemplo simple con django para control de inventarios(basado en un caso de estudio) usando el panel administrativo de django
 
 
 Crear el entorno virtual con nombre ENV_NUEVA_INGLATERRA
