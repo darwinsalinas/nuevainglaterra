@@ -1,5 +1,6 @@
 # nuevainglaterra
-Fuera de la carpeta del proyecto
+Ejemplo simple con django para control de inventarios usando el panel administrativo de django
+
 
 Crear el entorno virtual con nombre ENV_NUEVA_INGLATERRA
 ```bash
