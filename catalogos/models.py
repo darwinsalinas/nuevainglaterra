@@ -55,3 +55,36 @@ class Presentacion(models.Model):
     class Meta:
         verbose_name = 'Presentación'
         verbose_name_plural = 'Presentaciones'
+
+
+class TipoArticulo(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Tipo de artículo'
+        verbose_name_plural = 'Tipos de artículos'
+
+
+class OrigenVenta(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Origen de venta'
+        verbose_name_plural = 'Orígenes de ventas'
+
+
+class TipoFactura(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Tipo de factura'
+        verbose_name_plural = 'Tipos de facturas'
