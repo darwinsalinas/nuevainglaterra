@@ -88,3 +88,72 @@ class TipoFactura(models.Model):
     class Meta:
         verbose_name = 'Tipo de factura'
         verbose_name_plural = 'Tipos de facturas'
+
+
+class Genero(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Género'
+        verbose_name_plural = 'Géneros'
+
+
+class EstadoCivil(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Estado Civil'
+        verbose_name_plural = 'Estados Civiles'
+
+
+class Pais(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Pais'
+        verbose_name_plural = 'Paises'
+
+
+class Departamento(models.Model):
+    nombre = models.CharField(max_length=100)
+    pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Departamento'
+        verbose_name_plural = 'Departamentos'
+
+
+class Municipio(models.Model):
+    nombre = models.CharField(max_length=150)
+    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Municipio'
+        verbose_name_plural = 'Municipios'
+
+
+class Comunidad(models.Model):
+    nombre = models.CharField(max_length=150)
+    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Comunidad'
+        verbose_name_plural = 'Comunidades'
