@@ -18,3 +18,30 @@ class Articulo(models.Model):
     class Meta:
         verbose_name = 'Artículo'
         verbose_name_plural = 'Artículos'
+
+
+class TipoMovimiento(models.Model):
+    nombre = models.CharField(max_length=60)
+
+    def __str__(self):
+        return "{}".format(self.nombre)
+
+    class Meta:
+        verbose_name = 'Tipo de movimiento'
+        verbose_name_plural = 'Tipos de movimientos'
+
+
+class Kardex(models.Model):
+    fecha = models.DateField()
+    referencia = models.CharField(max_length=200)
+    articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE)
+    tipo_movimiento = models.IntegerField()
+    cantidad = models.FloatField()
+    valor_unitario = models.FloatField()
+
+    def __str__(self):
+        return "{} {}".format(self.cantidad, self.articulo.nombre)
+
+    class Meta:
+        verbose_name = 'Kárdex'
+        verbose_name_plural = 'Kárdex'

@@ -1,6 +1,8 @@
 from django.db import models
 from catalogos.models import Comunidad
-from inventario.models import Articulo
+from inventario.models import Articulo, Kardex
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Proveedor(models.Model):
@@ -41,3 +43,19 @@ class DetalleCompra(models.Model):
     class Meta:
         verbose_name = 'Detalle de compra'
         verbose_name_plural = 'Detalles de compras'
+
+
+@receiver(post_save, sender=DetalleCompra)
+def actualizar_inventario(sender, instance, **kwargs):
+    compra_id = instance.compra.id
+    articulo_id = instance.articulo.id
+    fecha_compra = instance.compra.fecha
+
+    kardex = Kardex()
+    kardex.fecha = fecha_compra
+    kardex.referencia = compra_id
+    kardex.articulo_id = articulo_id
+    kardex.tipo_movimiento = 1
+    kardex.cantidad = instance.cantidad
+    kardex.valor_unitario = instance.precio_compra
+    kardex.save()

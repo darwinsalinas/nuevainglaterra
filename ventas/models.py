@@ -1,5 +1,8 @@
 from django.db import models
 from catalogos.models import Genero, Comunidad, EstadoCivil
+from inventario.models import Articulo, Kardex
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Vendedor(models.Model):
@@ -33,3 +36,45 @@ class Cliente(models.Model):
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
+
+
+class Venta(models.Model):
+    fecha = models.DateField()
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{}".format(self.fecha)
+
+    class Meta:
+        verbose_name = 'Venta'
+        verbose_name_plural = 'Ventas'
+
+
+class DetalleVenta(models.Model):
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE)
+    cantidad = models.FloatField()
+    precio_venta = models.FloatField()
+
+    def __str__(self):
+        return "{} {}".format(self.cantidad, self.articulo.nombre)
+
+    class Meta:
+        verbose_name = 'Detalle de venta'
+        verbose_name_plural = 'Detalles de ventas'
+
+
+@receiver(post_save, sender=DetalleVenta)
+def actualizar_inventario(sender, instance, **kwargs):
+    venta_id = instance.venta.id
+    articulo_id = instance.articulo.id
+    fecha_venta = instance.venta.fecha
+
+    kardex = Kardex()
+    kardex.fecha = fecha_venta
+    kardex.referencia = "Venta No {}".format(venta_id)
+    kardex.articulo_id = articulo_id
+    kardex.tipo_movimiento = 2
+    kardex.cantidad = instance.cantidad
+    kardex.valor_unitario = instance.precio_venta
+    kardex.save()
