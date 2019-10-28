@@ -12,7 +12,10 @@ class DetallesPedidoInline(admin.TabularInline):
 
 class PedidoAdmin(admin.ModelAdmin):
     inlines = [DetallesPedidoInline]
-    list_filter = ('fecha', 'vendedor__nombres', 'cliente__nombres', 'origen__nombre')
+    search_fields = [
+        'cliente__nombres'
+    ]
+    list_filter = ('fecha', 'vendedor__nombres', 'origen__nombre')
 
 
 admin.site.register(Pedido, PedidoAdmin)

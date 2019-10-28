@@ -13,7 +13,10 @@ class DetallesVentaInline(admin.TabularInline):
 
 class VentaAdmin(admin.ModelAdmin):
     inlines = [DetallesVentaInline]
-    list_filter = ('fecha', 'vendedor__nombres', 'cliente__nombres', 'detalles_venta__articulo__nombre')
+    search_fields = [
+        'cliente__nombres'
+    ]
+    list_filter = ('fecha', 'tipo', 'vendedor__nombres', 'detalles_venta__articulo__nombre')
 
 
 admin.site.register(Venta, VentaAdmin)
