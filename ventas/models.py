@@ -5,6 +5,29 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+class OrigenPedido(models.Model):
+    nombre = models.CharField(max_length=60)
+
+    def __str__(self):
+        return "{}".format(self.nombre)
+
+    class Meta:
+        verbose_name = 'Origen de venta'
+        verbose_name_plural = 'Orígenes de ventas'
+
+
+class TipoVenta(models.Model):
+    nombre = models.CharField(max_length=60)
+    descuento = models.FloatField(default=0)
+
+    def __str__(self):
+        return "{}".format(self.nombre)
+
+    class Meta:
+        verbose_name = 'Tipo de venta'
+        verbose_name_plural = 'Tipos de ventas'
+
+
 class Vendedor(models.Model):
     nombres = models.CharField(max_length=150)
     apellidos = models.CharField(max_length=150)
@@ -38,9 +61,39 @@ class Cliente(models.Model):
         verbose_name_plural = 'Clientes'
 
 
+class Pedido(models.Model):
+    fecha = models.DateField()
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    vendedor = models.ForeignKey(Vendedor, on_delete=models.PROTECT)
+    origen = models.ForeignKey(OrigenPedido, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return "{}".format(self.fecha)
+
+    class Meta:
+        verbose_name = 'Pedido'
+        verbose_name_plural = 'Pedidos'
+
+
+class DetallePedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, on_delete=models.PROTECT)
+    cantidad = models.FloatField()
+    precio_venta = models.FloatField()
+
+    def __str__(self):
+        return "{} {}".format(self.cantidad, self.articulo.nombre)
+
+    class Meta:
+        verbose_name = 'Detalle de pedido'
+        verbose_name_plural = 'Detalles de pedidos'
+
+
 class Venta(models.Model):
     fecha = models.DateField()
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoVenta, on_delete=models.PROTECT)  # Al por mayor y al menudeo
 
     def __str__(self):
         return "{}".format(self.fecha)
@@ -52,7 +105,7 @@ class Venta(models.Model):
 
 class DetalleVenta(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
-    articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, on_delete=models.PROTECT)
     cantidad = models.FloatField()
     precio_venta = models.FloatField()
 
@@ -62,6 +115,33 @@ class DetalleVenta(models.Model):
     class Meta:
         verbose_name = 'Detalle de venta'
         verbose_name_plural = 'Detalles de ventas'
+
+
+class Devolucion(models.Model):
+    fecha = models.DateField()
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} {}".format(self.fecha, self.cliente.nombres)
+
+    class Meta:
+        verbose_name = 'Devolución'
+        verbose_name_plural = 'Devoluciones'
+
+
+class DetalleDevolucion(models.Model):
+    devolucion = models.ForeignKey(Devolucion, on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo, on_delete=models.PROTECT)
+    cantidad = models.FloatField()
+    precio_devolucion = models.FloatField()
+
+    def __str__(self):
+        return "{} {}".format(self.cantidad, self.articulo.nombre)
+
+    class Meta:
+        verbose_name = 'Detalle de devolución'
+        verbose_name_plural = 'Detalles de devoluciones'
 
 
 @receiver(post_save, sender=DetalleVenta)

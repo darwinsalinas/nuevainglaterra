@@ -35,7 +35,7 @@ class Kardex(models.Model):
     fecha = models.DateField()
     referencia = models.CharField(max_length=200)
     articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE)
-    tipo_movimiento = models.IntegerField()
+    tipo_movimiento = models.ForeignKey(TipoMovimiento, on_delete=models.PROTECT)
     cantidad = models.FloatField()
     valor_unitario = models.FloatField()
 
