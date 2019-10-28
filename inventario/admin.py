@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Articulo, Kardex
+from .models import Articulo, Kardex, TipoMovimiento
 
 admin.site.register([
     Articulo,
-    Kardex
+    Kardex,
+    TipoMovimiento
 ])

@@ -4,7 +4,7 @@ from ventas.models import Cliente, Vendedor
 
 
 class OrigenPedido(models.Model):
-    nombre = models.CharField(max_length=60)
+    nombre = models.CharField(max_length=60, verbose_name='Origen del pedido')
 
     def __str__(self):
         return "{}".format(self.nombre)
@@ -21,7 +21,7 @@ class Pedido(models.Model):
     origen = models.ForeignKey(OrigenPedido, on_delete=models.PROTECT)
 
     def __str__(self):
-        return "{}".format(self.fecha)
+        return "{} - {}".format(self.fecha, self.cliente.nombres)
 
     class Meta:
         verbose_name = 'Pedido'

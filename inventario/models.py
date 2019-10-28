@@ -3,7 +3,7 @@ from catalogos.models import Marca, Modelo, UnidadMedida, Presentacion, TipoArti
 
 
 class Articulo(models.Model):
-    nombre = models.CharField(max_length=150)
+    nombre = models.CharField(max_length=150, verbose_name='Nombre del artículo')
     codigo = models.CharField(max_length=20)
     serie = models.CharField(max_length=100)
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)

@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 
 class Proveedor(models.Model):
-    nombre = models.CharField(max_length=150)
+    nombre = models.CharField(max_length=150, verbose_name='Nombre del proveedor')
     telefono = models.CharField(max_length=15)
     comunidad = models.ForeignKey(Comunidad, on_delete=models.CASCADE)
     direccion = models.CharField(max_length=250)
@@ -24,7 +24,7 @@ class Compra(models.Model):
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}".format(self.fecha)
+        return "{} - {}".format(self.fecha, self.proveedor.nombre)
 
     class Meta:
         verbose_name = 'Compra'
@@ -32,7 +32,7 @@ class Compra(models.Model):
 
 
 class DetalleCompra(models.Model):
-    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE, related_name='detalles_compra')
     articulo = models.ForeignKey(Articulo, on_delete=models.CASCADE)
     cantidad = models.FloatField()
     precio_compra = models.FloatField()
@@ -53,9 +53,9 @@ def actualizar_inventario(sender, instance, **kwargs):
 
     kardex = Kardex()
     kardex.fecha = fecha_compra
-    kardex.referencia = compra_id
+    kardex.referencia = "Compra No {}".format(compra_id)
     kardex.articulo_id = articulo_id
-    kardex.tipo_movimiento = 1
+    kardex.tipo_movimiento_id = 1
     kardex.cantidad = instance.cantidad
     kardex.valor_unitario = instance.precio_compra
     kardex.save()

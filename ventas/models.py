@@ -6,8 +6,8 @@ from django.dispatch import receiver
 
 
 class Vendedor(models.Model):
-    nombres = models.CharField(max_length=150)
-    apellidos = models.CharField(max_length=150)
+    nombres = models.CharField(max_length=150, verbose_name='Nombre del vendedor')
+    apellidos = models.CharField(max_length=150, verbose_name='Apellido del vendedor')
     telefono = models.CharField(max_length=15)
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
     comunidad = models.ForeignKey(Comunidad, on_delete=models.CASCADE)
@@ -22,8 +22,8 @@ class Vendedor(models.Model):
 
 
 class Cliente(models.Model):
-    nombres = models.CharField(max_length=150)
-    apellidos = models.CharField(max_length=150)
+    nombres = models.CharField(max_length=150, verbose_name='Nombre del cliente')
+    apellidos = models.CharField(max_length=150, verbose_name='Apellido del cliente')
     telefono = models.CharField(max_length=15)
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
     estado_civil = models.ForeignKey(EstadoCivil, on_delete=models.CASCADE)
@@ -46,7 +46,7 @@ class Venta(models.Model):
     tipo = models.ForeignKey(TipoVenta, on_delete=models.PROTECT)  # Al por mayor y al menudeo
 
     def __str__(self):
-        return "{}".format(self.fecha)
+        return "{} - {}".format(self.fecha, self.cliente.nombres)
 
     class Meta:
         verbose_name = 'Venta'
@@ -54,7 +54,7 @@ class Venta(models.Model):
 
 
 class DetalleVenta(models.Model):
-    venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, related_name='detalles_venta')
     articulo = models.ForeignKey(Articulo, on_delete=models.PROTECT)
     cantidad = models.FloatField()
     precio_venta = models.FloatField()
@@ -77,7 +77,7 @@ def actualizar_inventario(sender, instance, **kwargs):
     kardex.fecha = fecha_venta
     kardex.referencia = "Venta No {}".format(venta_id)
     kardex.articulo_id = articulo_id
-    kardex.tipo_movimiento = 2
+    kardex.tipo_movimiento_id = 2
     kardex.cantidad = instance.cantidad
     kardex.valor_unitario = instance.precio_venta
     kardex.save()
