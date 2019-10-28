@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import Articulo, Kardex, TipoMovimiento
 
+admin.site.site_header = "Almacenes Nueva Inglaterra"
+admin.site.site_title = "Almacenes Nueva Inglaterra"
+admin.site.index_title = "Bienvenido a Almacenes Nueva Inglaterra"
+
 admin.site.register([
     Kardex,
     TipoMovimiento
