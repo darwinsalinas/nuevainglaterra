@@ -79,6 +79,18 @@ class OrigenVenta(models.Model):
         verbose_name_plural = 'Orígenes de ventas'
 
 
+class TipoVenta(models.Model):
+    nombre = models.CharField(max_length=60)
+    descuento = models.FloatField(default=0)
+
+    def __str__(self):
+        return "{}".format(self.nombre)
+
+    class Meta:
+        verbose_name = 'Tipo de venta'
+        verbose_name_plural = 'Tipos de ventas'
+
+
 class TipoFactura(models.Model):
     nombre = models.CharField(max_length=100)
 

@@ -1,20 +1,24 @@
 from django.contrib import admin
-from .models import Marca, Modelo, Color, UnidadMedida, Presentacion, TipoArticulo, OrigenVenta, TipoFactura, Genero, \
+from django.contrib.auth.models import Group, User
+from .models import Marca, Modelo, UnidadMedida, Presentacion, TipoArticulo, Genero, \
     EstadoCivil, Pais, Departamento, Municipio, Comunidad
+from ventas.models import TipoVenta
 
 admin.site.register([
-    # Marca,
-    # Modelo,
-    # Color,
-    # UnidadMedida,
-    # Presentacion,
-    # TipoArticulo,
-    # OrigenVenta,
-    # TipoFactura,
-    # Genero,
-    # EstadoCivil,
-    # Pais,
-    # Departamento,
-    # Municipio,
-    # Comunidad,
+    Marca,
+    Modelo,
+    UnidadMedida,
+    Presentacion,
+    TipoArticulo,
+    Genero,
+    EstadoCivil,
+    Pais,
+    Departamento,
+    Municipio,
+    Comunidad,
+    TipoVenta
+])
+
+admin.site.unregister([
+    Group, User
 ])
