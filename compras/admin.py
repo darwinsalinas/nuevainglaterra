@@ -12,7 +12,10 @@ class DetallesCompraInline(admin.TabularInline):
 
 class CompraAdmin(admin.ModelAdmin):
     inlines = [DetallesCompraInline]
-    list_filter = ('fecha', 'proveedor__nombre', 'detalles_compra__articulo__nombre')
+    search_fields = [
+        'detalles_compra__articulo__nombre'
+    ]
+    list_filter = ('fecha', 'proveedor__nombre')
 
 
 class DetalleComrpaAdmin(admin.ModelAdmin):
