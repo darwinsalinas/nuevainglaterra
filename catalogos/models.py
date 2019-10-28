@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Marca(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, verbose_name='Marca')
 
     def __str__(self):
         return self.nombre
@@ -13,7 +13,7 @@ class Marca(models.Model):
 
 
 class Modelo(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, verbose_name='Modelo')
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -36,7 +36,7 @@ class Color(models.Model):
 
 
 class UnidadMedida(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, verbose_name='Unidad de medida')
 
     def __str__(self):
         return self.nombre
@@ -47,7 +47,7 @@ class UnidadMedida(models.Model):
 
 
 class Presentacion(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, verbose_name='Presentación')
 
     def __str__(self):
         return self.nombre
@@ -58,7 +58,7 @@ class Presentacion(models.Model):
 
 
 class TipoArticulo(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, verbose_name='Tipo de artículo')
 
     def __str__(self):
         return self.nombre

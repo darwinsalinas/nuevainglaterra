@@ -15,4 +15,12 @@ class CompraAdmin(admin.ModelAdmin):
     list_filter = ('fecha', 'proveedor__nombre', 'detalles_compra__articulo__nombre')
 
 
+class DetalleComrpaAdmin(admin.ModelAdmin):
+    search_fields = [
+        'articulo__nombre'
+    ]
+    list_filter = ('compra__fecha', 'compra__proveedor__nombre', 'cantidad')
+
+
 admin.site.register(Compra, CompraAdmin)
+admin.site.register(DetalleCompra, DetalleComrpaAdmin)
