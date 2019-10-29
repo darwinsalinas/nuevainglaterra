@@ -1,4 +1,4 @@
-# nuevainglaterra
+# Almacenes Nueva Inglaterra
 Ejemplo simple con django para control de inventarios(basado en un caso de estudio) usando el panel administrativo de django
 
 
