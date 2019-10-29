@@ -36,3 +36,7 @@ Levantar el servidor
 python manage.py runserver
 ```
 
+Registrar los tipos de movimientos disponibles:
+1. Compras
+2. Ventas
+3. Devoluciones
