@@ -34,7 +34,7 @@ python manage.py migrate
 
 Crear super usuario
 ```bash
-python manage.py createsupersuser
+python manage.py createsuperuser
 ```
 
 Levantar el servidor
