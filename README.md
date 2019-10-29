@@ -2,6 +2,12 @@
 Ejemplo simple con django para control de inventarios(basado en un caso de estudio) usando el panel administrativo de django
 
 
+## Requerimientos:
+
+Python 3.7.4 o superior
+
+## Configuraciones
+
 Crear el entorno virtual con nombre ENV_NUEVA_INGLATERRA
 ```bash
 python3 -m venv ENV_NUEVA_INGLATERRA
